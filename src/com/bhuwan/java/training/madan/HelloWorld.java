@@ -19,7 +19,7 @@ public class HelloWorld {
 		String salu;
 		String name;
 		
-			System.out.println("Enter your salutation");
+			System.out.println("Enter your njak salutation");
 			salu=input.next();
 			System.out.println("Enter your full name");
 			name=input.next();

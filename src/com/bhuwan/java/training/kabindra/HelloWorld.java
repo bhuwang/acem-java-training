@@ -19,7 +19,7 @@ public class HelloWorld {
 		Scanner input = new Scanner(System.in);
 		System.out.print("Enter Salutation");
 		s=input.next();
-		System.out.print("Enter name");
+		System.out.print("Entername");
 		n= input.next();
 		System.out.println(s+""+n);
 		input.close();

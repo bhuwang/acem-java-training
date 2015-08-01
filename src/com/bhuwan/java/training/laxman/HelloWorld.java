@@ -21,6 +21,6 @@ public class HelloWorld {
         System.out.println("Enter the full name");
         name = in.nextLine();
         System.out.println(salut+" "+ name);
-
+        in.close();
     }
 }

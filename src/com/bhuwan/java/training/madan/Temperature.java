@@ -22,9 +22,9 @@ public class Temperature {
 		final String DEG="\u2103";
 		final String FAHR="\u2109";
 		
-		System.out.println("------------------------------------");
+		System.out.println("-------------------------------------");
 		System.out.println("Celsius \t\t Fahrenheit ");
-		System.out.println("------------------------------------");
+		System.out.println("-------------------------------------");
 		
 		for(i=0;i<=100;i++){
 			

@@ -15,7 +15,6 @@ package com.bhuwan.java.training.kiran;
  *
  */
 public class HelloWorldDemo {
-
 	
 	public static void getSalutation(String salutation,String name){
 		System.out.println(salutation + " " + name);

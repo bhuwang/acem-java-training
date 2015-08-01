@@ -19,7 +19,8 @@ public class HelloWorld {
 		salutation= input.nextLine();
 		System.out.println("Enter your Full Name::");
 		fullName= input.nextLine();
-		display(salutation, fullName);		
+		display(salutation, fullName);
+		input.close();
 		
 	}
 

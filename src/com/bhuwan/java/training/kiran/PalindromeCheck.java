@@ -22,7 +22,7 @@ public class PalindromeCheck {
 		System.out.println("Enter the 5-digit number");
 		int number = scanner.nextInt();
 		
-		while(!(number/10000 > 0 && number/10000 < 10)){
+		while(!(number >= 10000 && number < 100000)){
 			System.out.println("number is not 5 digit");
 			System.out.println("please enter another number");
 			number = scanner.nextInt();

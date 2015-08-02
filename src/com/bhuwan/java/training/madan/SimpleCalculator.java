@@ -10,7 +10,7 @@ import java.util.Scanner;
  *Aug 1, 2015 6:45:13 PM
  * @author madandhungana@gmail.com
  *
- *<pre>
+ *</pre>
  */
 public class SimpleCalculator {
 	

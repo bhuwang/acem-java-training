@@ -11,7 +11,7 @@ package com.bhuwan.java.training.madan;
  *Aug 1, 2015 8:57:07 PM
  * @author madandhungana@gmail.com
  *
- *<pre>
+ *</pre>
  */
 public class Temperature {
 	
@@ -19,8 +19,8 @@ public class Temperature {
 	
 		int i;
 		float fahrenheit;
-		final String DEG="\u2103";
-		final String FAHR="\u2109";
+//		final String DEG="\u2103";
+//		final String FAHR="\u2109";
 		
 		System.out.println("-------------------------------------");
 		System.out.println("Celsius \t\t Fahrenheit ");

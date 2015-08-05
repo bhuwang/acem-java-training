@@ -55,11 +55,11 @@ public class Student {
 	public static void main(String[] args) {
 		Student[] student = new Student[5];
 		
-		student[0] = new Student("bishal","BCT",520,370);
-		student[1] = new Student("kushal","BCE",289,290);
+		student[0] = new Student("bishal","BCT",20,370);
+		student[1] = new Student("kushal","BCE",89,290);
 		student[2] = new Student("mina","BCT",25,410);
 		student[3] = new Student("karina","BCT",29,390);
-		student[4] = new Student("suman","BCT",500,420);
+		student[4] = new Student("suman","BCT",50,420);
 
 		//displaying result
 		System.out.println("Name\t\t\tPercentage(%)\t\tGPA\n");

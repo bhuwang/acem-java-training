@@ -49,7 +49,7 @@ public class GuessingGame {
 		if( guessNumber == randomNum ){
 			System.out.println("Guessing Value : " + guessNumber +
 					"\n Random Number : " + randomNum +
-					"\n Number of Attempts : " + numOfAttempt);
+					"\n Number of Attempts : " + numOfAttempt );
 		}
 		
 		scanner.close();

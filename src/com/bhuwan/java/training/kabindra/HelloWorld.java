@@ -17,7 +17,7 @@ public class HelloWorld {
 	public static void main(String[] args){
 		String s,n;
 		Scanner input = new Scanner(System.in);
-		System.out.print("Enter Salutation");
+		System.out.print("Enter Salutation.");
 		s=input.next();
 		System.out.print("Enter name");
 		n= input.next();

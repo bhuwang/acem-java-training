@@ -21,7 +21,7 @@ public class CelsiusToFahrenheit {
 		System.out.println("Celsius\t\tFahrenheit");
 		for(celsius = 0; celsius < 100; celsius++){
 			fahrenheit = celsius * 9/5 + 32; 
-			System.out.println(celsius + "\t\t" +fahrenheit);
+			System.out.println(celsius + "\t\t" + fahrenheit);
 		}	
 	}
 }

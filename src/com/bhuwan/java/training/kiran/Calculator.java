@@ -29,7 +29,7 @@ public class Calculator {
 		switch(option){
 			case 1:
 				System.out.println("Addition between "+ value1 + " and "+value2+
-						" is "+(value1+value2));
+						" is "+ (value1+value2));
 				break;
 			
 			case 2:
@@ -38,19 +38,19 @@ public class Calculator {
 				break;	
 			case 3:
 				System.out.println("Multiplication between "+ value1 + " and "+value2+
-						" is "+(value1*value2));
+						" is "+ (value1*value2));
 				break;
 			
 			case 4:
 				System.out.println("Division between "+ value1 + " and "+value2+
-						" is "+(value1/value2));
+						" is "+ (value1/value2));
 				break;
 			case 5:
 				System.out.println("% Calculation between "+ value1 + " and "+value2+
 						" is "+(value1%value2));
 				break;	
 			default:
-				System.out.println("please enter specified number");
+				System.out.println("please enter specified number ");
 				
 		}
 		scanner.close();

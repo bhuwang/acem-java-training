@@ -1,0 +1,29 @@
+
+1. Create table user
+2. add new column address varchar(5)
+3. Insert one user full name and update later with update statement
+4. modify #1 column length 5 to 50
+5. delete two user whose address is kathmandu
+
+
+
+CREATE TABLE user (
+id int primary key auto_increment,
+username varchar(20),
+password varchar(20),
+fullname varchar(20),
+
+)
+
+ALTER TABLE user
+ADD address varchar(5);
+
+
+INSERT INTO USER (id,username,password,fullname,address) values(‘’,’laxman’,’khanal’,’laxman khanal’,’sankhamul’);
+
+
+UPDATE user SET address=’baneshwor’ where id=2;
+
+ALTER TABLE user MODIFY  COLUMN address VARCHAR(20);
+
+delete from user where address='kathmandu';

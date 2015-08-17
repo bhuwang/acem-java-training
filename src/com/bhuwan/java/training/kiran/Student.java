@@ -66,7 +66,8 @@ public class Student {
 		for(Student stnt: student){
 			stnt.calculatePercentage();
 			stnt.calculateGPA();
-			System.out.println(stnt.name + "\t\t\t" + stnt.getPercentage() + "\t\t\t" + stnt.getGPA());
+			System.out.println(stnt.name + "\t\t\t" + stnt.getPercentage() + "\t\t\t" + 
+							   stnt.getGPA()+ "\t" +stnt.rollnum +"\t"+stnt.studentClass);
 		}
 	}
 

@@ -73,9 +73,9 @@ public class HelloWorldDemo {
 		
 		iterator.remove();
 		
-		/*while(iterator.hasNext()){
+		while(iterator.hasNext()){
 			System.out.println();
-		}*/
+		}
 		
 	/*	for(String stname : completeList){
 			System.out.println(stname);		

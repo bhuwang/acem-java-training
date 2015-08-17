@@ -30,4 +30,8 @@ hs_err_pid*
 /bin/
 .classpath
 .project
+<<<<<<< HEAD
 .idea
+=======
+.metadata/*
+>>>>>>> 1_kiran

@@ -9,14 +9,14 @@ public interface EmployeeDAOInterface{
 	
 	public Employee login(String username,String password) throws SQLException;
 	
-	public void addUser(Employee employee) throws SQLException;
+	public int addUser(Employee employee) throws SQLException;
 	
-	public void deleteUser(String fullname) throws SQLException;
+	public int deleteUser(String fullname) throws SQLException;
 	
-	public void terminateUser(String fullname) throws SQLException;
+	public boolean terminateUser(String fullname) throws SQLException;
 	
 	public List<Employee> searchEmployee(String[] searchterm) throws SQLException;
 	
-	public void editInformation(String[] editterm,Employee employee) throws SQLException;
+	public boolean editInformation(String[] editterm,Employee employee) throws SQLException;
 	
 }

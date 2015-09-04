@@ -28,7 +28,7 @@ public class EmployeeDAO implements EmployeeDAOInterface{
 			emp.setAddress(result.getString("address"));
 			emp.setDepartment(result.getString("department"));
 			emp.setTerminated(result.getBoolean("isTerminated"));
-			emp.setRole(result.getString("role"));
+			emp.setRole(Role.valueOf(result.getString("role")));
 		}
 		return emp;
 	}
@@ -53,12 +53,12 @@ public class EmployeeDAO implements EmployeeDAOInterface{
 			emp.setAddress(result.getString("address"));
 			emp.setDepartment(result.getString("department"));
 			emp.setTerminated(result.getBoolean("isTerminated"));
-			emp.setRole(result.getString("role"));
+			emp.setRole(Role.valueOf(result.getString("role")));
 		}
 		return emp;
 	}
 	
-	public void addUser(Employee employee) throws SQLException{
+	public int addUser(Employee employee) throws SQLException{
 		
 		Connection conn = DBConnection.getMySqlConnection();
 		String str = "insert into user(username,password,fullname,department,address,role) values(?,?,?,?,?,?)";
@@ -68,52 +68,43 @@ public class EmployeeDAO implements EmployeeDAOInterface{
 		stmt.setString(3, employee.getFullname());
 		stmt.setString(4, employee.getDepartment());
 		stmt.setString(5, employee.getAddress());
-		stmt.setString(6, employee.getRole());		
-		stmt.execute();
-		System.out.println("successfully added user");
-		
+		stmt.setString(6, employee.getRole().toString());		
+		return stmt.executeUpdate();
 	}
 	
-	public void deleteUser(String fullname) throws SQLException{
+	public int deleteUser(String fullname) throws SQLException{
 		
 		Connection conn = DBConnection.getMySqlConnection();
-		String str = "delete from user where fullname = ?";
+		String str = "delete from user where fullname = ? and role != ?";
 		PreparedStatement stmt = conn.prepareStatement(str);
 		stmt.setString(1,fullname);
-		if(stmt.execute()){
-			System.out.println("successfully deleted user having username " + fullname);
-		}else{
-			System.out.println("specified user name doesnot exits :");
-		}
+		stmt.setString(2, "admin");
+		return stmt.executeUpdate();
 	}
 	
-	public void terminateUser(String fullname) throws SQLException{
+	public boolean terminateUser(String fullname) throws SQLException{
 		Connection conn = DBConnection.getMySqlConnection();
 		String str = "update user set isTerminated = ? where fullname = ?";
 		PreparedStatement stmt = conn.prepareStatement(str);
 		stmt.setString(1,"1");
 		stmt.setString(2,fullname);
-		if(stmt.execute()){
-			System.out.println("successfully terminated user of username " + fullname);
-		}else{
-			System.out.println("specified user name doesnot exits :");
-		}	
+		return stmt.execute();
 	}
 	
 	public List<Employee> searchEmployee(String[] searchterm) throws SQLException{
 		
 		Connection conn = DBConnection.getMySqlConnection();
 		PreparedStatement stmt = null;
+		String str = "";
 		if(searchterm[0] != null){
-			String str = "select * from user where " + searchterm[0] + " = ? and role != ?";
+			str = "select * from user where " + searchterm[0] + " = ?";
 			stmt = conn.prepareStatement(str);
 			stmt.setString(1,searchterm[1]);
-			stmt.setString(2,"admin");
 		}else{
-			String str = "select * from user";
+			str = "select * from user";
 			stmt = conn.prepareStatement(str);
 		}
-			
+		
 		ResultSet result = stmt.executeQuery();
 		
 		Employee emp = null;
@@ -128,25 +119,21 @@ public class EmployeeDAO implements EmployeeDAOInterface{
 			emp.setAddress(result.getString("address"));
 			emp.setDepartment(result.getString("department"));
 			emp.setTerminated(result.getBoolean("isTerminated"));
-			emp.setRole(result.getString("role"));
+			emp.setRole(Role.valueOf(result.getString("role")));
 			employeeList.add(emp);
 		}
+		
 		return employeeList;
 	}
 	
 	
-	public void editInformation(String[] editterm,Employee employee) throws SQLException{
+	public boolean editInformation(String[] editterm,Employee employee) throws SQLException{
 		
 		Connection conn = DBConnection.getMySqlConnection();
 		String str = "update user set " + editterm[0] + " = ? where username = ? ";
 		PreparedStatement stmt = conn.prepareStatement(str);
 		stmt.setString(1, editterm[1]);
 		stmt.setString(2, employee.getUsername());
-		
-		if(!stmt.execute()){
-			System.out.println("successfully edited own information");
-		}else{
-			System.out.println("unsuccessful action :");
-		}	
+		return stmt.execute();
 	}
 }

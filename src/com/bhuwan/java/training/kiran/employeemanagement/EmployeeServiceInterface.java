@@ -7,13 +7,13 @@ public interface EmployeeServiceInterface {
 
 	public Employee checkAdminExistance() throws SQLException;
 	
-	public void createDefaultAdmin(Employee employee) throws SQLException;
+	public int createDefaultAdmin() throws SQLException;
 	
 	public Employee login(String username,String password) throws SQLException;
 	
-	public void addUser(Employee employee) throws SQLException;
+	public int addUser(Employee employee) throws SQLException;
 	
-	public void deleteUser(String fullname) throws SQLException;
+	public int deleteUser(String fullname) throws SQLException;
 	
 	public void terminateUser(String fullname) throws SQLException;
 

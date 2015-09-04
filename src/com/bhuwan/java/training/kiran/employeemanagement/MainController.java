@@ -1,6 +1,7 @@
 package com.bhuwan.java.training.kiran.employeemanagement;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
@@ -17,58 +18,52 @@ public class MainController {
 		employeeLogged = null;
 		
 			try {
-				Employee employee = new Employee();
-				employee = mainController.employeeService.checkAdminExistance();
-				if(employee == null){
-					System.out.println("Admin not exist in the system :");
-					employee = mainController.formFillUp();
-					mainController.employeeService.createDefaultAdmin(employee);
-				}else{
-					System.out.println("Admin already exists in the system:");
-				}
-				
-			} catch (SQLException e) {
-				System.out.println("exception in main method");
-				System.err.println("SQLException:" + e.getStackTrace());
-			}
-				
-			try(Scanner scanner = new Scanner(System.in)){
-				
-				System.out.println("Continue?[Y/N]");
-		
-				while(scanner.nextLine().equalsIgnoreCase("y")){
-				
-					System.out.println("Enter username :");
-					String username = scanner.nextLine();
-					System.out.println("Enter password :");
-					String password = scanner.nextLine();
-					
-					employeeLogged = mainController.employeeService.login(username,password);
-					
-					if(employeeLogged != null){
-					
-						System.out.println("Welcome " + employeeLogged.getFullname());
-						System.out.println("you are " + employeeLogged.getRole());
-						
-						if(employeeLogged.getRole().equals("admin")){
-							mainController.functionForAdmin(employeeLogged);
-							
-						}else if(employeeLogged.getRole().equals("user")){
-							mainController.functionForUser(employeeLogged);
-							
+					if( mainController.employeeService.checkAdminExistance() != null ){
+						System.out.println("Admin already exists in the system:");
+					}else{	
+						System.out.println("Admin not exist in the system :");
+						if(mainController.employeeService.createDefaultAdmin() == 1){
+							System.out.println("Default admin has created with User Name : Kiran");
 						}else{
-							System.out.println("invalid login");
-						}
-					}else{
-						System.out.println("invalid username or password or you are terminated");
+							System.out.println("Failed to create default admin");
+						}		
 					}
+					
 					System.out.println("Continue?[Y/N]");
+					
+					while(mainController.scanner.nextLine().equalsIgnoreCase("y")){
+					
+						System.out.println("Enter username :");
+						String username = mainController.scanner.nextLine();
+						System.out.println("Enter password :");
+						String password = mainController.scanner.nextLine();
+						
+						employeeLogged = mainController.employeeService.login(username,password);
+						
+						if(employeeLogged != null){
+						
+							System.out.println("Welcome " + employeeLogged.getFullname());
+							System.out.println("You are " + employeeLogged.getRole());
+							
+							if(employeeLogged.getRole().equals(Role.admin)){
+								mainController.functionForAdmin(employeeLogged);
+								
+							}else{
+								mainController.functionForUser(employeeLogged);	
+							}
+						}else{
+							System.out.println("invalid username or password or you are terminated");
+						}
+						System.out.println("Continue?[Y/N]");
+					}
+					System.out.println("bye");
+					
+				} catch (SQLException e) {
+					System.out.println("exception in main method");
+					System.err.println("SQLException:" + e.getMessage());
+					System.err.println("SQLException:" + e.getStackTrace());
 				}
-				System.out.println("bye");
-			}catch(SQLException e){
-				System.out.println("exception in main method");
-				System.err.println("SQLException:" + e.getStackTrace());
-			}
+				
 	}
 	
 	public void functionForAdmin(Employee employeeLogged){
@@ -90,7 +85,11 @@ public class MainController {
 			switch(option){
 				case 1: 
 					System.out.println("fill up the following form :");
-					employeeService.addUser(mainController.formFillUp());
+					if(employeeService.addUser(mainController.formFillUp()) == 1){
+						System.out.println("Successfully added user :");
+					}else{
+						System.out.println("Fuction unsuccessful :");
+					}
 					break;
 				
 				case 2:
@@ -98,6 +97,7 @@ public class MainController {
 					int option1 = 0;
 					try {
 				        option1 = Integer.parseInt(scanner.nextLine());
+				        
 				    } catch (IllegalArgumentException e) {
 				        e.printStackTrace();
 				    }
@@ -107,7 +107,14 @@ public class MainController {
 					
 				case 3:
 					System.out.println("enter fullname :");
-					employeeService.deleteUser(scanner.nextLine());
+					String fullname = scanner.nextLine();
+					int isDeleted = employeeService.deleteUser(fullname);
+					System.out.println(isDeleted);
+					if(isDeleted != 0){
+						System.out.println("successfully deleted use with fulname = " + fullname);
+					}else{
+						System.out.println("Admin can not be deleted or specified user doesnot exit");
+					}
 					break;
 				
 				case 4:
@@ -123,6 +130,7 @@ public class MainController {
 			}
 		}catch(SQLException e){
 			System.out.println("exception in functionForAdmin method");
+			System.err.println("SQLException:" + e.getMessage());
 			System.err.println("SQLException:" + e.getStackTrace());
 		}
 	}
@@ -195,22 +203,57 @@ public class MainController {
 		Employee employee = new Employee();	
 		
 		System.out.println("user name :");
-		employee.setUsername(scanner.nextLine());
+		String userName = scanner.nextLine();
+		
+		while(userName.equals("")){
+			System.out.println("user name canot be null, enter user name");
+			userName = scanner.nextLine();
+		}
+		
+		employee.setUsername(userName);
+		
 		System.out.println("password :");
-		employee.setPassword(scanner.nextLine());
+		String password = scanner.nextLine();
+		
+		while(password.equals("")){
+			System.out.println("user name can not be null, enter password");
+			password = scanner.nextLine();
+		}
+		
+		employee.setPassword(password);
+		
 		System.out.println("fullname :");
-		employee.setFullname(scanner.nextLine());
+		String fullName = scanner.nextLine();
+		
+		while(fullName.equals("")){
+			System.out.println("fullname can not be null, enter fullname");
+			fullName = scanner.nextLine();
+		}
+		
+		employee.setFullname(fullName);
+		
 		System.out.println("department :");
 		employee.setDepartment(scanner.nextLine());
 		System.out.println("address :");
 		employee.setAddress(scanner.nextLine());
-		System.out.println("role :");
-		employee.setRole(scanner.nextLine());
+		
+		System.out.println("role : a. admin   u. user");
+		String role = scanner.nextLine();
+		
+		while(role.equals("") || (!role.equals("a") && !role.equals("u"))){
+			System.out.println("role can not be null and please select specified option");
+			role = scanner.nextLine(); 
+		}	
+		
+		if(role.equals("a")){
+			employee.setRole(Role.valueOf("admin"));
+		}else{
+			employee.setRole(Role.valueOf("user"));
+		}
 		
 		return employee;
 	}
-	
-	
+		
 	public String[] searchOption(int option){
 		String[] searchBy = new String[2];  
 		
@@ -310,21 +353,23 @@ public class MainController {
 	public void displayEmployee(List<Employee> employeeList){
 		
 		Iterator<Employee> iterator = employeeList.iterator(); 
-		
-		if(employeeList.isEmpty()){
-		
-			System.out.println("No user found with specified parameter :");
-		
-		}	else{	
 			
-			System.out.println("username\tpassword\tfullname\tdepartment\trole");
+		if(employeeList.isEmpty()){
+			System.out.println("No user found with specified parameter :");
+		}else{	
+			System.out.println("Displaying employees information :");
+			System.out.println();
+			
 			Employee employee = new Employee();
 			while(iterator.hasNext()){
 				employee = iterator.next();
-				System.out.println(employee.getUsername() + "\t\t" + employee.getPassword() + "\t\t" +
-								   employee.getFullname() + "\t\t" + employee.getDepartment() + "\t" +
-								   employee.getRole()
-						);
+				System.out.println("User " + employee.getId());
+				System.out.println("User name  : " + employee.getUsername());
+				System.out.println("Password   : " + employee.getPassword());
+				System.out.println("Full name  : " + employee.getFullname());
+				System.out.println("Department : " + employee.getDepartment());
+				System.out.println("Role       : " + employee.getRole());
+			    System.out.println();
 			}
 		}
 	}

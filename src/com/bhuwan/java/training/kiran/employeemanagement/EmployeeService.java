@@ -10,8 +10,15 @@ public class EmployeeService implements EmployeeServiceInterface{
 		return employeeDAO.checkAdminExistance();
 	}
 	
-	public void createDefaultAdmin(Employee employee) throws SQLException{
-		addUser(employee);
+	public int createDefaultAdmin() throws SQLException{
+		Employee defaultEmployee = new Employee();
+		defaultEmployee.setUsername("kiran");
+		defaultEmployee.setPassword("pariyar");
+		defaultEmployee.setFullname("kiran pariyar");
+		defaultEmployee.setAddress("koteshwor");
+		defaultEmployee.setDepartment("computer");
+		defaultEmployee.setRole(Role.admin);
+		return addUser(defaultEmployee);
 	}
 	
 	public Employee login(String username,String password) throws SQLException{
@@ -19,14 +26,14 @@ public class EmployeeService implements EmployeeServiceInterface{
 		return employeeDAO.login(username, password);
 	}
 	
-	public void addUser(Employee employee) throws SQLException{
+	public int addUser(Employee employee) throws SQLException{
 		EmployeeDAO employeeDAO = new EmployeeDAO();
-		employeeDAO.addUser(employee);
+		return employeeDAO.addUser(employee);
 	} 
 	
-	public void deleteUser(String fullname) throws SQLException{
+	public int deleteUser(String fullname) throws SQLException{
 		EmployeeDAO employeeDAO = new EmployeeDAO();
-		employeeDAO.deleteUser(fullname);
+		return employeeDAO.deleteUser(fullname);
 	}
 	
 	public void terminateUser(String fullname) throws SQLException{
@@ -43,5 +50,4 @@ public class EmployeeService implements EmployeeServiceInterface{
 		EmployeeDAO employeeDAO = new EmployeeDAO();
 		employeeDAO.editInformation(editterm, employee);
 	}
-	
 }
